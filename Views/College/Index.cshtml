@@ -1,0 +1,36 @@
+﻿@model List<CollegeDTO>
+
+
+<table class="table bordered">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>UniversityId</th>
+        <th>UniversityName</th>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+        <tr>
+        <td>@item.Id</td>
+        <td>@item.Name</td>
+        <td>@item.UniversityId</td>
+        <td>@item.UniversityName</td>
+        <td> <a asp-action="Edit" asp-controller="College" class="btn btn-primary" onclick="ConfirmEdit(event)" asp-route-Id="@item.Id"> Edit </a>  </td>
+        </tr>
+        }
+    }
+    </table>
+
+    
+ <script>
+    function ConfirmEdit()
+    {
+        document.getElementById("")
+        var accept = confirm("Are You Sure?");
+        if (accept == false) {
+            event.preventDefault();//pervent go to server
+        }
+    }
+
+</script>

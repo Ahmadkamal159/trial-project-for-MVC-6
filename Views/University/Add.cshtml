@@ -1,0 +1,29 @@
+﻿@using trial_project_for_MVC_Core.Models;
+
+@model UniversityDTO
+
+<form asp-action="Add">
+<h1>please enter a new university</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger" ></div>
+ 
+<div class="form-group">
+    <label asp-for="Name" class="control-label"></label>
+    
+    <input asp-for="Name" class="form-control" >
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Location" class="control-label"></label>
+    
+    <input asp-for="Location"  class="form-control" />
+
+    <span asp-validation-for="Location" class="text-danger"></span>
+</div>
+
+
+    <input  type="submit" value="Add univesity" class="btn btn-primary" />
+    <a asp-controller="University" asp-action="Index" asp-route-id="" class="btn btn-primary">Back</a>
+</form>
+
