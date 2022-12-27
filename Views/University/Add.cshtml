@@ -26,4 +26,9 @@
     <input  type="submit" value="Add univesity" class="btn btn-primary" />
     <a asp-controller="University" asp-action="Index" asp-route-id="" class="btn btn-primary">Back</a>
 </form>
-
+@section validator{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+} 
+@*this section is to validate in client side and no need to go to server
+*@
