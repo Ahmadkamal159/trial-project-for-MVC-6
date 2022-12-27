@@ -24,3 +24,9 @@
     <input value="Save Changes" type="submit" class="btn btn-primary" />
     <a asp-action="Index" asp-controller="University" class="btn btn-danger">Back</a>
 </form>
+@section validator{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+@*this section is to validate in client side and no need to go to server
+*@
