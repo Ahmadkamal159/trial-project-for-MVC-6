@@ -85,6 +85,16 @@ namespace trial_project_for_MVC_Core.Controllers
             return View(collegeDTO);
 
         }
+        public IActionResult Delete(int? id) {
+        
+        if(id==null) return View("Error");
+            College col = Context.Colleges.SingleOrDefault(x => x.Id == id);
+            Context.Remove(col);
+            Context.SaveChanges();
+            return RedirectToAction("Index");
+        
+        }
+
     }
 
 }

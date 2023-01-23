@@ -18,6 +18,7 @@
         <td>@item.Name</td>
         <td>@item.Location</td>
         <td> <a asp-action="Details" asp-controller="University" class="btn btn-primary" asp-route-Id="@item.Id"> Details </a>  </td>
+       @*<td> <input type="submit" value="show here" id="id" class="btn btn-success" onclick="AjaxCall(@item.Id)"> </td>*@
         <td> <a asp-action="Edit" asp-controller="University" class="btn btn-primary" onclick="ConfirmEdit(event)" asp-route-Id="@item.Id"> Edit </a>  </td>
         <td> <a asp-action="Delete" asp-controller="University" class="btn btn-danger" onclick="ConfirmDelete(event)" asp-route-Id="@item.Id"> Delete </a>  </td>
         </tr>
@@ -27,17 +28,31 @@
 
     
 @*    <td> <a asp-action="Edit" asp-controller="University" class="btn btn-primary" asp-route="university/edit/@item.Id">Edit </a>  </td>
-
+    alternative to test when needed
 *@
 </table>
+
+<div id="partial_details" class="page-item">
+
+
+</div>
 
 <div class="form-control">
 
     <a class="btn btn-outline-primary" asp-action="Add" asp-controller="University" > Add university </a>
 
 </div>
-
+@*<script src ="~ /  /  /jquery.unobtrusive-ajax.js"></script>*@ @*ajax lib is missing from my library*@
 <script>
+
+ 
+    //function AjaxCall(Id){
+    //    var Id=$("#id").val();
+    //    $.ajax({
+    //        url: "/University/PartialUniversityDetails",data: {"Id":Id},success:function(result){$("#partial_details").html(result);}
+    //    }
+    //    );
+    //}
 
     function ConfirmDelete()
     {

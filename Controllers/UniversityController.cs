@@ -13,7 +13,40 @@ namespace trial_project_for_MVC_Core.Controllers
 
             Context = _context;
         }
-        
+
+        public IActionResult CheckName(string Name,int id)
+        {
+            if(id == 0)
+            {
+                University uni = Context.Universities.FirstOrDefault(x => x.Name == Name);
+
+                if (uni == null)
+                {
+                return Json(true);
+                }
+            else
+               {
+                return Json(false);
+               }
+            }
+            else
+            {
+                University uni = Context.Universities.FirstOrDefault(x => x.Name == Name);
+
+                if (uni== null)
+                    return Json(true);
+                else
+                {
+                    if (uni.Id == id)
+                    {
+                        return Json(true);
+                    }
+                    else { return Json(false); }
+                }
+            }
+
+        }
+
         public IActionResult Index()
         {
            List<University> uni = Context.Universities.ToList();
@@ -36,7 +69,7 @@ namespace trial_project_for_MVC_Core.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(UniversityDTO university)//here I've put DTO to get data about uni only and to pass the modelstate as well
+        public IActionResult Add([include:Name,Location] UniversityDTO university)//here I've put DTO to get data about uni only and to pass the modelstate as well
         {
 
 
@@ -110,6 +143,15 @@ namespace trial_project_for_MVC_Core.Controllers
             UniDTO.Location = Uni.Location;
             return View(UniDTO);
         }
+
+        //public IActionResult PartialUniversityDetails(int Id)
+        //{
+
+        //    University uni= Context.Universities.SingleOrDefault(x => x.Id == Id);
+        //    UniversityDTO dTO= new() { Id=uni.Id,Name=uni.Name,Location=uni.Location};
+            
+        //    return PartialView("Details",dTO);
+        //}
     }
    
 }

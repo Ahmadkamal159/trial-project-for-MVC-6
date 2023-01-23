@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using trial_project_for_MVC_Core.EntityDB;
-using trial_project_for_MVC_Core.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
