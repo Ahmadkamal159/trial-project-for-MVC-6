@@ -9,8 +9,8 @@ namespace trial_project_for_MVC_Core.Models
         //public double? Grade { get; set; }
         //readonly double SubjectGrade;
         //readonly double Percentage;
-        public List<StudentDTO> Students { get; set; }
-        public List<TeacherDTO> Teachers { get; set; }
+        public List<AppUser> Students { get; set; }
+        public List<AppUser> Teachers { get; set; }
 
     }
 }

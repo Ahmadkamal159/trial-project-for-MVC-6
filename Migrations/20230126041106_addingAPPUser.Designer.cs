@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using trial_project_for_MVC_Core.EntityDB;
 
@@ -11,9 +12,10 @@ using trial_project_for_MVC_Core.EntityDB;
 namespace trial_project_for_MVC_Core.Migrations
 {
     [DbContext(typeof(UniversityEntity))]
-    partial class UniversityEntityModelSnapshot : ModelSnapshot
+    [Migration("20230126041106_addingAPPUser")]
+    partial class addingAPPUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,6 +206,7 @@ namespace trial_project_for_MVC_Core.Migrations
                         .HasColumnType("bit");
 
                     b.Property<byte[]>("ProfilePicture")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -213,6 +216,7 @@ namespace trial_project_for_MVC_Core.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 

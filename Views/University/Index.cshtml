@@ -2,7 +2,7 @@
 @using  trial_project_for_MVC_Core.Models
 
 @model List<UniversityDTO>
-
+welcome @User.Identity.Name
 
 <table class="table bordered">
     <tr>
@@ -40,6 +40,12 @@
 <div class="form-control">
 
     <a class="btn btn-outline-primary" asp-action="Add" asp-controller="University" > Add university </a>
+
+</div>
+
+<div class="form-control">
+
+    <a class="btn btn-outline-danger" asp-action="Logout" asp-controller="Account"> Sign Out </a>
 
 </div>
 @*<script src ="~ /  /  /jquery.unobtrusive-ajax.js"></script>*@ @*ajax lib is missing from my library*@
