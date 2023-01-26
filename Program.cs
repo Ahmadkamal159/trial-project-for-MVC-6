@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using trial_project_for_MVC_Core.EntityDB;
+using trial_project_for_MVC_Core.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddControllersWithViews();
 //must put it here before building the app
 builder.Services.AddDbContext<UniversityEntity>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection")));
 
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<UniversityEntity>()
+    
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 //add DB services and take connectionstring from json file directly
@@ -21,6 +26,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

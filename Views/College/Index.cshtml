@@ -18,11 +18,11 @@
         <td>@item.UniversityName</td>
         <td> <a asp-action="Edit" asp-controller="College" class="btn btn-primary" onclick="ConfirmEdit(event)" asp-route-Id="@item.Id"> Edit </a>  </td>
         <td> <a asp-action="Delete" asp-controller="College" class="btn btn-danger" onclick="ConfirmDelete(event)" asp-route-Id="@item.Id"> Delete </a>  </td>
-
         </tr>
         }
     }
     </table>
+   <td> <a asp-action="Add" asp-controller="College" class="btn btn-primary"> Add College </a>  </td>
 
     
  <script>

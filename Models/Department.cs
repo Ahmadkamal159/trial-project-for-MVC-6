@@ -8,7 +8,7 @@ namespace trial_project_for_MVC_Core.Models
         public string Name { get; set;}
         //public int CollegeId;
         public College College { get; set; }
-        public List<StudentDTO> students { get; set; }
-        public List<TeacherDTO> teachers { get; set; }
+        public List<AppUser> students { get; set; }
+        public List<AppUser> teachers { get; set; }
     }
 }
