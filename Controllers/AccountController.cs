@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using trial_project_for_MVC_Core.Models;
 using trial_project_for_MVC_Core.ViewModels;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
-
 namespace trial_project_for_MVC_Core.Controllers
 {
     public class AccountController : Controller
@@ -25,10 +24,12 @@ namespace trial_project_for_MVC_Core.Controllers
 
         public IActionResult Register()
         {
-            return View();
+            ViewModelRegisteration viewModelRegisteration = new ViewModelRegisteration();
+            return View(viewModelRegisteration);
         }
 
         [HttpPost]
+        [RequestSizeLimit(400000)]
         public async Task<IActionResult> Register(ViewModelRegisteration viewModelRegisteration)
         {
             if (ModelState.IsValid)
@@ -37,12 +38,22 @@ namespace trial_project_for_MVC_Core.Controllers
                 user.UserName = viewModelRegisteration.UserName.ToLower();
                 user.Email = viewModelRegisteration.Email;
                 user.PhoneNumber = viewModelRegisteration.PhoneNumber;
+                if (Request.Form.Files.Count > 0)
+                {
+                    var file = Request.Form.Files[0];
+                    using(var picstream=new MemoryStream())
+                    {
+                        await file.CopyToAsync(picstream);
+                        user.ProfilePicture = picstream.ToArray();
+                    }
+                }
+
                 IdentityResult result = await UserManager.CreateAsync(user, viewModelRegisteration.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, false);
                  
-                    return RedirectToAction("Index", "University");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -67,7 +78,6 @@ namespace trial_project_for_MVC_Core.Controllers
         
         
         [HttpPost]
-
         public async Task<IActionResult> Login(ViewmodelLogin viewmodelLogin,string ReturnUrl = "~/university/index")
         {
             ModelState.Remove("ReturnUrl");
