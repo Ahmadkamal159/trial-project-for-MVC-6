@@ -31,5 +31,6 @@ namespace trial_project_for_MVC_Core.ViewModels
         public string PhoneNumber {get; set;}
         [Display(Name ="Profile Pic")]
         public byte[]? ProfilePicture { get; set; }
+
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using trial_project_for_MVC_Core.Models;
 using trial_project_for_MVC_Core.ViewModels;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+
 namespace trial_project_for_MVC_Core.Controllers
 {
     public class AccountController : Controller
@@ -54,6 +55,7 @@ namespace trial_project_for_MVC_Core.Controllers
                     await SignInManager.SignInAsync(user, false);
                  
                     return RedirectToAction("Index", "Home");
+
                 }
                 else
                 {
@@ -78,6 +80,7 @@ namespace trial_project_for_MVC_Core.Controllers
         
         
         [HttpPost]
+
         public async Task<IActionResult> Login(ViewmodelLogin viewmodelLogin,string ReturnUrl = "~/university/index")
         {
             ModelState.Remove("ReturnUrl");
