@@ -29,5 +29,8 @@ namespace trial_project_for_MVC_Core.ViewModels
         [Required,Display(Name="phone Number")]
         [RegularExpression(@"^(00201|\+201|01)[0-2,5]{1}[0-9]{8}$",ErrorMessage ="invalid mobile number")]
         public string PhoneNumber {get; set;}
+        [Display(Name ="Profile Pic")]
+        public byte[]? ProfilePicture { get; set; }
+
     }
 }

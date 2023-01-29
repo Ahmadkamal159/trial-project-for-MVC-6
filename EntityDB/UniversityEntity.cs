@@ -14,7 +14,6 @@ namespace trial_project_for_MVC_Core.EntityDB
         public DbSet<University> Universities { get; set; }
         public DbSet<College> Colleges { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
-
         //public DbSet<College> Colleges { get; set; }
         //public DbSet<Department> Departments { get; set; }
         //public DbSet<Lab> Labs { get; set; }
