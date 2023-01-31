@@ -8,13 +8,16 @@ namespace trial_project_for_MVC_Core.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly RoleManager<IdentityRole> roleManager;
+
         public UserManager<AppUser> UserManager { get; }
         public SignInManager<AppUser> SignInManager { get; }
 
-        public AccountController(UserManager<AppUser> _user,SignInManager<AppUser> _signInManager)
+        public AccountController(UserManager<AppUser> _user,SignInManager<AppUser> _signInManager, RoleManager<IdentityRole>_roleManager)
         {
             UserManager = _user;
             SignInManager = _signInManager;
+            roleManager = _roleManager;
         }
 
 
@@ -126,6 +129,8 @@ namespace trial_project_for_MVC_Core.Controllers
             await SignInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
+
 
     }
 }

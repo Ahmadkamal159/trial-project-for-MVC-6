@@ -1,23 +1,25 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
+using trial_project_for_MVC_Core.Models;
 using trial_project_for_MVC_Core.ViewModels;
 
 namespace trial_project_for_MVC_Core.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> RoleManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<AppUser> userManager;
 
 
-        public RoleController(RoleManager<IdentityRole> _RoleManager, UserManager<IdentityUser> _usermanager)
+        public RoleController(RoleManager<IdentityRole> _RoleManager, UserManager<AppUser> _usermanager)
         {
             userManager = _usermanager;
             RoleManager = _RoleManager;
         }
-        // GET: RoleController
+
         public IActionResult Index()
         {
             List<ViewModelRole> rolesToView = new();
@@ -26,6 +28,8 @@ namespace trial_project_for_MVC_Core.Controllers
             {
                 ViewModelRole v = new();
                 v.RoleName = role.Name;
+                v.Id=role.Id;
+                rolesToView.Add(v);
             }
 
             return View(rolesToView);
@@ -38,11 +42,11 @@ namespace trial_project_for_MVC_Core.Controllers
             return View(role);
         }
 
-        // POST: RoleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddRole(ViewModelRole role)
+        public async Task<IActionResult> AddRole([include: RoleName] ViewModelRole role)
         {
+            ModelState.Remove("Id"); 
             if (ModelState.IsValid)
             {
                 IdentityRole identityRole = new();
@@ -66,44 +70,57 @@ namespace trial_project_for_MVC_Core.Controllers
             return View(role);
         }
 
-        // GET: RoleController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string? Id)
         {
-            return View();
-        }
-
-        // POST: RoleController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            var role= RoleManager.Roles.FirstOrDefault(x=>x.Id==Id);
+            if (Id != role.Id)
             {
-                return RedirectToAction(nameof(Index));
+                return Content("invalid role ID");
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Delete(int id)
-        {
-            return View();
+            ViewModelRole r = new() { RoleName = role.Name, Id = role.Id };
+            return View(r);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task <IActionResult> Edit(ViewModelRole r)
         {
-            try
+            if(ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                IdentityRole idenrole = RoleManager.Roles.FirstOrDefault(x=>x.Id==r.Id);
+                idenrole.Name = r.RoleName;
+                IdentityResult res= await RoleManager.UpdateAsync(idenrole);
+                if (res.Succeeded)
+                {
+
+                    await RoleManager.UpdateAsync(idenrole);
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {
+                    foreach(var error in res.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
+
+        public async Task<ActionResult> Delete(string? id)
+        {
+
+            if (await RoleManager.FindByIdAsync(id)==null)
+            {
+                return Content("there's No Item to delete");
+            }
+            IdentityRole iden = RoleManager.Roles.FirstOrDefault(x => x.Id == id);
+
+            await RoleManager.DeleteAsync(iden);
+
+            return RedirectToAction("Index");
+        }
+        
     }
 }

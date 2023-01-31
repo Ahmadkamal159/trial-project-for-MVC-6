@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace trial_project_for_MVC_Core.ViewModels
 {
@@ -7,5 +6,8 @@ namespace trial_project_for_MVC_Core.ViewModels
     {
         [Required,Display(Name ="Role Name")]
         public string RoleName { get; set; }
+
+        public string Id { get; set; }
+
     }
 }

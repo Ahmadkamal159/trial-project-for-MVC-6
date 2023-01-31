@@ -9,8 +9,9 @@ namespace trial_project_for_MVC_Core.EntityDB
     {
         public UniversityEntity(DbContextOptions options):base(options)
         {
-
+            
         }
+
         public DbSet<University> Universities { get; set; }
         public DbSet<College> Colleges { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
